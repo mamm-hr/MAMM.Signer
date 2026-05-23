@@ -1,0 +1,5 @@
+!bin
+bin/*.exe
+!bin/lib
+bin/lib/*
+!bin/lib/_procitajme.txt

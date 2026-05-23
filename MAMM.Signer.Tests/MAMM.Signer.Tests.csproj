@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Konfiguracija projekta. -->
+	<PropertyGroup>
+		<!-- Upisati ovdje verziju .NET-a za koju se gradi.-->
+		<_MyNetCoreTarget Condition="'' == '$(_MyNetCoreTarget)'">net10.0</_MyNetCoreTarget>
+		<IsPublishable>false</IsPublishable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>$(_MyNetCoreTarget)</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<MyProjectBaseName Condition="'' == '$(MyProjectBaseName)'">$([System.Text.RegularExpressions.Regex]::Match('$(MSBuildProjectName)', '^[^.]+(\.[^.]+)?').Value)</MyProjectBaseName>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
+		<PackageReference Include="MSTest" Version="4.2.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\$(MyProjectBaseName).Pkcs\$(MyProjectBaseName).Pkcs.csproj" />
+		<ProjectReference Include="..\MAMM.Signer.Core\MAMM.Signer.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="TestCase.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCase_Soft_None.txt.p7s">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCase_Blue_None.txt.p7s">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCase_Soft_Blue.txt.p7s">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCert_RSA.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCert_ECDSA_Ident.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCert_ECDSA_Sign.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCert_Root.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="TestCert_CA.pfx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

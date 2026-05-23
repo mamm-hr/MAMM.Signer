@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".runsettings" />
+    <File Path="publish.cmd" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="MAMM.Signer.Cli/MAMM.Signer.Cli.csproj" />
+  <Project Path="MAMM.Signer.Core/MAMM.Signer.Core.csproj" />
+  <Project Path="MAMM.Signer.Gui/MAMM.Signer.Gui.csproj" Id="0b00bda2-b3ec-4382-b493-ffdaa55b9fa3" />
+  <Project Path="MAMM.Signer.Interop/MAMM.Signer.Interop.csproj" />
+  <Project Path="MAMM.Signer.Pkcs/MAMM.Signer.Pkcs.csproj" />
+  <Project Path="MAMM.Signer.Shared/MAMM.Signer.Certs.shproj" />
+  <Project Path="MAMM.Signer.Shared/MAMM.Signer.CertsRef.shproj" />
+  <Project Path="MAMM.Signer.Tests/MAMM.Signer.Tests.csproj" />
+</Solution>

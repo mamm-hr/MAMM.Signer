@@ -1,0 +1,163 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Konfiguracija projekta. -->
+	<PropertyGroup>
+		<!-- Upisati ovdje verziju .NET Frameworka za koju se gradi.-->
+		<_MyNetFrameworkTarget Condition="'' == '$(_MyNetFrameworkTarget)'">net48</_MyNetFrameworkTarget>
+		<!-- Upisati ovdje verziju .NET-a za koju se gradi.-->
+		<_MyNetCoreTarget Condition="'' == '$(_MyNetCoreTarget)'">net10.0-windows</_MyNetCoreTarget>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latest</LangVersion>
+		<NeutralLanguage>en</NeutralLanguage>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<!-- Atributi na razini sklopa su u AssemblyInfo.cs; ne koristiti projektna svojstva poput Version, Company,
+		     Product. -->
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<!-- V. cilj MakeTypeLib. -->
+		<DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+	</PropertyGroup>
+
+	<!-- Projektne varijable. -->
+	<PropertyGroup>
+		<_MyIsPublishing>$(_IsPublishing)</_MyIsPublishing>
+		<!-- Izdvaja bazno ime projekta u svrhu formiranja imena ostalih projekata ovog rješenja. -->
+		<_MyProjectBaseName Condition="'' == '$(_MyProjectBaseName)'">$([System.Text.RegularExpressions.Regex]::Match('$(MSBuildProjectName)', '^[^.]+(\.[^.]+)?').Value)</_MyProjectBaseName>
+		<!-- Staza do skripte koja konfigurira razvojno okružje potrebno za korištenje MIDL prevodioca. -->
+		<_MyVsComnTools Condition="'' == '$(_MyVsComnTools)' And '' != '$(VSINSTALLDIR)'">$([System.IO.Path]::Combine('$(VSINSTALLDIR)', 'Common7', 'Tools'))</_MyVsComnTools>
+		<_MyVsComnTools Condition="'' == '$(_MyVsComnTools)' And '' != '$(VSAPPIDDIR)'">$([System.IO.Path]::Combine('$(VSAPPIDDIR)', '..', 'Tools'))</_MyVsComnTools>
+		<_MyMidlDevEnvBat Condition="'' != '$(_MyVsComnTools)'">$([System.IO.Path]::Combine('$(_MyVsComnTools)', 'VsDevCmd.bat'))</_MyMidlDevEnvBat>
+	</PropertyGroup>
+
+	<!-- Cilj izgradnje. Dopušta izgradnju za jedan ili dva cilja istodobno, ovisno o konfiguraciji projekta. -->
+	<PropertyGroup Condition="'' == '$(_MyNetFrameworkTarget)' And '' != '$(_MyNetCoreTarget)'">
+		<TargetFramework>$(_MyNetFrameworkTarget)</TargetFramework>
+	</PropertyGroup>
+	<PropertyGroup Condition="'' != '$(_MyNetFrameworkTarget)' And '' == '$(_MyNetCoreTarget)'">
+		<TargetFramework>$(_MyNetCoreTarget)</TargetFramework>
+	</PropertyGroup>
+	<PropertyGroup Condition="'' != '$(_MyNetFrameworkTarget)' And '' != '$(_MyNetCoreTarget)'">
+		<TargetFrameworks>$(_MyNetFrameworkTarget);$(_MyNetCoreTarget)</TargetFrameworks>
+	</PropertyGroup>
+
+	<!-- Konfiguracija interoperabilnosti s COM-om. -->
+	<PropertyGroup Condition="'$(TargetFramework)' == '$(_MyNetFrameworkTarget)'">
+		<!-- RegAsm ne izvršava automatski. Registrirati treba ručno. -->
+		<RegisterForComInterop>false</RegisterForComInterop>
+		<!-- Generira preusmjerenja iz referenciranih verzija sklopova u verzije koje se stvarno isporučuju. -->
+		<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+		<!-- Pošto je ovo DLL, .config datoteka s preusmjerenjima se normalno ne kreira, ali ovo forsira. Dobije se
+		MAMM.Signer.Interop.dll.config. -->
+		<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(TargetFramework)' == '$(_MyNetCoreTarget)'">
+		<!-- Generira .comhost.dll tehničku komponentnu (unmanaged). -->
+		<EnableComHosting>true</EnableComHosting>
+		<!-- Generira manifest za tehničku komponentu. Dobije se MAMM.Signer.Interop.X.manifest. -->
+		<EnableRegFreeCom>true</EnableRegFreeCom>
+		<!-- Generira .comhost.dll za x86 umjesto x64.
+			 https://learn.microsoft.com/en-us/answers/questions/2259135/how-to-register-net-8-build-activex-so-that-test-p
+			 -->
+		<NETCoreSdkRuntimeIdentifier>win-x86</NETCoreSdkRuntimeIdentifier>
+		<_MyMakeTypeLib>true</_MyMakeTypeLib>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="$(_MyProjectBaseName).Tests" />
+	</ItemGroup>
+
+	<!-- Iz nekog razloga ne pokupi se ova ovisnost u izlazni direktorij kad se gradi za .NET Framework, a potrebna je.
+	-->
+	<ItemGroup Condition="'$(TargetFramework)' == '$(_MyNetFrameworkTarget)'">
+		<PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\$(_MyProjectBaseName).Pkcs\$(_MyProjectBaseName).Pkcs.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\$(_MyProjectBaseName).Shared\$(_MyProjectBaseName).CertsRef.projitems" Label="CertsRef" />
+	<Import Project="..\$(_MyProjectBaseName).Shared\$(_MyProjectBaseName).Certs.projitems" Label="Certs" />
+
+	<ItemGroup>
+		<Compile Update="Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<!-- Naziv IDL datoteke i staza gdje se generira odredišna TLB datoteka, v. cilj MakeTypeLib. -->
+	<ItemGroup>
+		<_MyIdlFileName Include="$(_MyProjectBaseName).idl" />
+		<_MyTypeLibFilePath Include="$([System.IO.Path]::Combine('$(IntermediateOutputPath)', '$(_MyProjectBaseName).tlb'))" />
+	</ItemGroup>
+
+	<!-- Kopira .tlb datoteku generiranu ciljem MakeTypeLib u izlazni direktorij skupa s drugim proizvedenim
+	     artefaktima. -->
+	<ItemGroup Condition="'true' == '$(_MyMakeTypeLib)'">
+		<None Condition="Exists(@(_MyTypeLibFilePath->%(Fullpath)))" Include="@(_MyTypeLibFilePath)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+	</ItemGroup>
+
+	<!-- Kopira priloženi mainfest za .NET Framework izgradnju u izlazni direktorij. -->
+	<ItemGroup Condition="'$(TargetFramework)' == '$(_MyNetFrameworkTarget)'">
+		<None Update="MAMM.Signer.Interop.manifest">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<!-- Ovaj cilj provjeri da je popunjena konfiguracija projekta. -->
+	<Target Name="VerifyProjectConfiguration" BeforeTargets="Build">
+		<!-- Je li zadan makar jedan ciljani kostur? -->
+		<Error Condition="'' == '$(_MyNetFrameworkTarget)' And '' == '$(_MyNetCoreTarget)'" Text=".NET kostur nije određen kroz projektno svojstvo _MyNetFrameworkTarget i/ili _MyNetCoreTarget." />
+	</Target>
+
+	<!--
+        https://stackoverflow.com/questions/76234695/msbuild-project-not-built-when-input-file-changed
+
+		Ako se ne isljuči brzi način utvrđivanja je li izgradnja projekta ažurna, Visual Studio neće uzeti u obzir
+		ulazne datoteke vanjskih alata u tom utvrđivanju i posljedično neće niti pokrenuti MSBuild. Svojstvom
+		DisableFastUpToDateCheck brzi se način isključi i MSBuild se pokrene i kad se ovisnosti vanjskog alata
+		promijene. Zbog toga će pokretanje izgradnje uvijek javiti makar "Build: 1 succeeded", tj. nikad neće izgradnja
+		javiti da su svi projekti "up-to-date", no bez obzira na to, projekt se ne izgradi ako nema potrebe.
+
+		DisableFastUpToDateCheck se može ukloniti iz projekta, jedini učinak će biti da se TLB datoteku onda mora
+		izraditi ručno kad se promijeni IDL, a da nikakve druge ovisnosti projekta nisu mijenjane.
+
+		Ovaj se cilj neće izgrađivati čak i u slučaju forsirane ponovne gradnje ako se ulazna IDL datoteka nije
+        izmijenila u odnosu na izlaznu .tlb datoteku dokle ona postoji.
+	-->
+	<Target Name="MakeTypeLib" Condition="'true' == '$(_MyMakeTypeLib)'" BeforeTargets="Build" Inputs="@(_MyIdlFileName)" Outputs="@(_MyTypeLibFilePath)">
+		<Warning Condition="'true' == '$(_MyIsPublishing)' And '' == '$(_MyMidlDevEnvBat)' And '' == '$(WindowsSdkBinPath)'" Text="MIDL prevoditelj neće biti izvršen. Publicirajte iz VS Developer Command Prompta."/>
+		<Warning Condition="'true' != '$(_MyIsPublishing)' And !Exists('$(_MyMidlDevEnvBat)')" Text="Ne postoji skripta za pripremu MIDL okružja '$(_MyMidlDevEnvBat)'; '_MyVsComnTools' = '$(_MyVsComnTools)'. Izgradite iz VS Developer Command Prompta."/>
+		<Exec Condition="'' != '$(_MyMidlDevEnvBat)' Or '' != '$(WindowsSdkBinPath)'" Command="mktlb &quot;$(_MyMidlDevEnvBat)&quot; @(_MyIdlFileName) &quot;@(_MyTypeLibFilePath)&quot;" />
+	</Target>
+	<Target Name="CopyTypeLibToVb6ProjectDirectory" AfterTargets="MakeTypeLib" Condition="'true' == '$(_MyMakeTypeLib)' And 'true' != '$(_MyIsPublishing)'" Inputs="@(_MyTypeLibFilePath)" Outputs="$([System.IO.Path]::Combine('..\$(_MyProjectBaseName).Vb6', [System.IO.Path]::GetFileName('@(_MyTypeLibFilePath)')))">
+		<Copy SourceFiles="@(_MyTypeLibFilePath)" DestinationFolder="..\$(_MyProjectBaseName).Vb6" />
+	</Target>
+	<Target Name="CopyTypeLibToOutputDirectory" AfterTargets="MakeTypeLib" Condition="'true' == '$(_MyMakeTypeLib)'" Inputs="@(_MyTypeLibFilePath)" Outputs="$([System.IO.Path]::Combine('$(OutputPath)', [System.IO.Path]::GetFileName('@(_MyTypeLibFilePath)')))">
+		<Copy SourceFiles="@(_MyTypeLibFilePath)" DestinationFolder="$(OutputPath)" />
+	</Target>
+	<Target Name="CopyTypeLibToPublishDirectory" AfterTargets="MakeTypeLib" Condition="'true' == '$(_MyMakeTypeLib)' And 'true' == '$(_MyIsPublishing)'" Inputs="@(_MyTypeLibFilePath)" Outputs="$([System.IO.Path]::Combine('$(PublishDir)', [System.IO.Path]::GetFileName('@(_MyTypeLibFilePath)')))">
+		<Copy SourceFiles="@(_MyTypeLibFilePath)" DestinationFolder="$(PublishDir)" />
+	</Target>
+	<Target Name="CopyBuildArtifactsToVb6ProjectDirectory" Condition="'' != '$(TargetFramework)'" AfterTargets="Build">
+		<ItemGroup>
+			<ArtifactsToCopy Include="$(OutDir)**\*" />
+		</ItemGroup>
+		<Copy
+			SourceFiles="@(ArtifactsToCopy)"
+			DestinationFolder="$([System.IO.Path]::Combine('..\$(_MyProjectBaseName).Vb6', 'bin', 'lib', '$(TargetFramework)', '%(RecursiveDir)'))"
+			SkipUnchangedFiles="true" />
+	</Target>
+</Project>

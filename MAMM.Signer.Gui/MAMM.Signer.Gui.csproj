@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!-- Konfiguracija projekta. -->
+	<PropertyGroup>
+		<!-- Upisati ovdje verziju .NET Frameworka za koju se gradi.-->
+		<_MyNetFrameworkTarget Condition="'' == '$(_MyNetFrameworkTarget)'">net48</_MyNetFrameworkTarget>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>$(_MyNetFrameworkTarget)</TargetFramework>
+		<OutputType>WinExe</OutputType>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>latest</LangVersion>
+		<ApplicationIcon>0021.ico</ApplicationIcon>
+		<!-- MSB3823: https://learn.microsoft.com/en-us/visualstudio/msbuild/errors/msb3823 -->
+		<GenerateResourceUsePreserializedResources>True</GenerateResourceUsePreserializedResources>
+		<Version>1.0.0</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<_MyProjectBaseName Condition="'' == '$(_MyProjectBaseName)'">$([System.Text.RegularExpressions.Regex]::Match('$(MSBuildProjectName)', '^[^.]+(\.[^.]+)?').Value)</_MyProjectBaseName>
+	</PropertyGroup>
+
+	<!-- Utvrđuje poddirektorij u koji se spremaju aplikacijske postavke. -->
+	<PropertyGroup>
+		<Company>MAMM</Company>
+		<Product>$(MSBuildProjectName)</Product>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="0021.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\$(_MyProjectBaseName).Pkcs\$(_MyProjectBaseName).Pkcs.csproj" />
+		<ProjectReference Include="..\$(_MyProjectBaseName).Core\$(_MyProjectBaseName).Core.csproj" />
+	</ItemGroup>
+	<!-- Iz nekog razloga ne pokupi se ova ovisnost u izlazni direktorij kad se gradi za .NET Framework, a potrebna je.
+	-->
+	<ItemGroup>
+		<!-- MSB3822: https://learn.microsoft.com/en-us/visualstudio/msbuild/errors/msb3822 -->
+		<PackageReference Include="System.Resources.Extensions" Version="10.0.8" />
+		<PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
+		<PackageReference Include="System.Text.Json" Version="10.0.8" />
+	</ItemGroup>
+
+	<Import Project="..\$(_MyProjectBaseName).Shared\$(_MyProjectBaseName).Certs.projitems" Label="Certs" />
+
+	<ItemGroup>
+	  <Compile Update="Strings.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Strings.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Strings.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>

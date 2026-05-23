@@ -1,0 +1,74 @@
+{
+  "profiles": {
+    "Bez argumenata javi pogrešku": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    },
+    "Bez opcija ne napravi ništa": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt"
+    },
+    "Jedan dokument, potpiše": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /sign"
+    },
+    "Jedan dokument, potpiše i verificira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /sign /verify"
+    },
+    "Jedan dokument, kuvertira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /encrypt"
+    },
+    // Ovo neće raditi s plavom karticom, pogreška će nastupiti kod dohvata privatnog ključa u implementaciji Decrypt metode EnvelopedCms objekta.
+    "Jedan dokument, kuvertira i verificira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /encrypt /verify"
+    },
+    // Ovo bi trebalo raditi s plavom karticom.
+    "Jedan dokument, kuvertira i verificira (RC4)": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /encrypt /verify /encryptAlg:friendlyName rc4"
+    },
+    // Ovo bi u svakom slučaju trebalo raditi s plavom karticom.
+    "Jedan dokument, kuvertira i verificira s kartice (RC4)": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /encrypt /verify /encryptAlg:friendlyName rc4 /encryptLoc smartCardReaders /includeCsp /ignorePurpose"
+    },
+    "Jedan dokument, potpiše i kuvertira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /encrypt /sign"
+    },
+    "Jedan dokument, potpiše, kuvertira i verificira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /encrypt /sign /verify"
+    },
+    "Uzorak dokumenata, potpiše": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.* /sign"
+    },
+    "Uzorak dokumenata, potpiše i verificira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.* /sign /verify"
+    },
+    "Uzorak dokumenata, potpiše i kuvertira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.* /sign /encrypt"
+    },
+    "Uzorak dokumenata, potpiše, kuvertira i verificira": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.* /sign /encrypt /verify"
+    },
+    // Jedna ulazna datoteka, potpisuje se izborom certifikata na karticama.
+    "HelloWorld.txt /sign /signLoc SmartCardReaders /includeCsp": {
+      "commandName": "Project",
+      "commandLineArgs": "HelloWorld.txt /sign /signLoc SmartCardReaders /includeCsp"
+    },
+    "MAMM.Signer": {
+      "commandName": "Project",
+      // "commandLineArgs": "E:\\Predelete\\AkdshSigner\\00_HelloWorld.txt /sign /signLoc aaa /DefaultDigestAlgorithm:RsaCsp:FriendlyName sha1 /DefaultDigestAlgorithm:RsaKsp:FriendlyName sha1"
+      //"commandLineArgs": "E:\\Predelete\\AkdshSigner\\00_HelloWorld.txt /sign /signCert 7a6a8ffc2fa10e9a2a3d20c2dae09a86fad18a44 /silentUi"
+      "commandLineArgs": "E:\\Predelete\\AkdshSigner\\00_HelloWorld.txt.p7s /verify"
+    }
+  }
+}

@@ -1,0 +1,314 @@
+// Snimati kao Windows 1250, a ne kao UTF-8, zbog dijakritièkih znakova!
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(D3C5F8A1-2C4E-4F6A-9A7B-1E2D3C4B5A6F),         // Usklaðivati s AssemblyInfo.cs datotekom.
+	version(1.1),                                       // Usklaðivati s AssemblyInfo.cs datotekom.
+	helpstring("MAMM Signer Interop Library (v. 1.1)")  // Usklaðivati s AssemblyInfo.cs datotekom.
+]
+library MammSignerLib
+{
+	typedef [
+		uuid(4C0CE2BC-4CDE-4AF3-AD12-FC89304ACA4B),		// Usklaðivati s IID_ICertificateLocation.
+		version(1.0),
+		helpstring("Lokacije u kojima se mogu tražiti certifikati.")
+	] enum CertificateLocation
+	{
+
+		[helpstring("U spremištu prijavljenog korisnika.")
+		] CurrentUser = 0,								// Usklaðivati vrijednosti s CertificateLocation.
+
+		[helpstring("U spremištu lokalnog raèunala.")
+		] LocalMachine = 1,
+
+		[helpstring("U spojenim kriptografskim ureðajima.")
+		] SmartCardReaders = 2,
+
+	} CertificateLocation;
+
+	typedef [
+		uuid(25CA587D-0660-48AF-9C81-AF8747DCE170),		// Usklaðivati s IID_ICertificatePurpose.
+		version(1.0),
+		helpstring("Moguæe namjene cerifikata.")
+	] enum CertificatePurpose
+	{
+
+		[helpstring("Namjena nije navedena ili nije bitna.")
+		] Unspecified = 0,								// Usklaðivati vrijednosti s CertificatePurpose.
+
+		[helpstring("Certifikat je namijenjen identifikaciji, šifriranju i slièno.")
+		] Identification = 1,
+
+		[helpstring("Certifikat je potpisni.")
+		] Signature = 2,
+
+	} CertificatePurpose;
+
+	[
+		odl,
+		uuid(AE56ABDB-8A0B-4047-9B75-A1B0484B0B47),     // Usklaðivati s IID_IDigestAlgorithms.
+		version(1.0),
+		dual,
+		oleautomation,
+		helpstring("Opcije algoritama digitalnih sažetaka za razlièite implementacije kriptografskog modula."),
+	] interface DigestAlgorithms : IDispatch {
+
+		[id(1), propget, helpstring("OID algoritma digitalnog sažetka kad se potpisuje RSA privatnim kljuèem kroz CSP implementaciju koja NIJE Akdsh CSP."),
+		] HRESULT RsaCspOid([out, retval] BSTR* pRetVal);
+
+		[id(1), propput,
+		] HRESULT RsaCspOid([in] BSTR rhs);
+
+		[id(2), propget, helpstring("OID algoritma digitalnog sažetka kad se potpisuje RSA privatnim kljuèem kroz modernu KSP implementaciju."),
+		] HRESULT RsaKspOid([out, retval] BSTR* pRetVal);
+
+		[id(2), propput,
+		] HRESULT RsaKspOid([in] BSTR rhs);
+
+		[id(3), propget, helpstring("OID algoritma digitalnog sažetka kad se potpisuje ECDSA privatnim kljuèem na krivulji P-256.")
+		] HRESULT Ecdsa256Oid([out, retval] BSTR* pRetVal);
+
+		[id(3), propput,
+		] HRESULT Ecdsa256Oid([in] BSTR rhs);
+
+		[id(4), propget, helpstring("OID algoritma digitalnog sažetka kad se potpisuje ECDSA privatnim kljuèem na krivulji P-384."),
+		] HRESULT Ecdsa384Oid([out, retval] BSTR* pRetVal);
+
+		[id(4), propput,
+		] HRESULT Ecdsa384Oid([in] BSTR rhs);
+
+		[id(5), propget, helpstring("OID algoritma digitalnog sažetka kad se potpisuje ECDSA privatnim kljuèem na krivulji P-521.")
+		] HRESULT Ecdsa521Oid([out, retval] BSTR* pRetVal);
+
+		[id(5), propput,
+		] HRESULT Ecdsa521Oid([in] BSTR rhs);
+
+	};
+
+	[
+		odl,
+		uuid(1C43B9EE-FA31-449F-BE42-933D2C4C5F55),     // Usklaðivati s IID_IPkcs7Options.
+		version(1.0),
+		dual,
+		oleautomation,
+		helpstring("Opcije za usmjeravanje rada metoda komponente Pkcs7."),
+	] interface Pkcs7Options : IDispatch {
+
+		[id(1), propget, helpstring("Prešutne opcije algoritama digitalnih sažetaka za razlièite implementacije kriptografskog modula.")
+		] HRESULT DefaultDigestAlgorithms([out, retval] DigestAlgorithms** pRetVal);
+
+		[id(2), propget, helpstring("Ako je ovo istina, neæe prikazati korisnièko suèelje ako je potrebno unijeti PIN ili potvrditi upotrebu privatnog kljuèa.")
+		] HRESULT SilentUi([out, retval] VARIANT_BOOL* pRetVal);
+
+		[id(2), propput
+		] HRESULT SilentUi([in] VARIANT_BOOL rhs);
+
+		[id(3), propget, helpstring("Ako je ovo laž, prilikom ovjere (verifikacije) potpisa provjerava se i valjanost (validira) potpisnikov certifikat i lanac povjerenja.")
+		] HRESULT TrustCertificates([out, retval] VARIANT_BOOL* pRetVal);
+
+		[id(3), propput
+		] HRESULT TrustCertificates([in] VARIANT_BOOL rhs);
+
+	};
+
+	[
+		odl,
+		uuid(9B446DFA-017B-4799-9BE0-40F0D785C765),     // Usklaðivati s IID_IPkcs7Oids.
+		version(1.0),
+		dual,
+		oleautomation,
+		helpstring("OID-ovi vezani uz PKCS #7."),
+	] interface Pkcs7Oids : IDispatch {
+
+		[id(1), propget, helpstring("PKCS #7 podatak nakon dekodiranja.")
+		] HRESULT DataOid([out, retval] BSTR* pRetVal);
+
+		[id(2), propget, helpstring("PKCS #7 potpisani podatak, \"signed-data content type\", odnosno SignedData tip.")
+		] HRESULT SignedDataOid([out, retval] BSTR* pRetVal);
+
+		[id(3), propget, helpstring("PKCS #7 kuvertirani /enveloped/ podatak, \"enveloped-data content type\", odnosno EnvelopedData tip.")
+		] HRESULT EnvelopedDataOid([out, retval] BSTR* pRetVal);
+
+		[id(4), propget, helpstring("PKCS #7 potpisani i kuvertirani /enveloped/ podatak, \"signed-and-enveloped-data content type\", odnosno SignedAndEnvelopedData tip.")
+		] HRESULT SignedAndEnvelopedDataOid([out, retval] BSTR* pRetVal);
+
+		[id(5), propget, helpstring("PKCS #7 sažeti podatak, \"digested-data content type\", odnosno DigestedData.")
+		] HRESULT DigestedDataOid([out, retval] BSTR* pRetVal);
+
+		[id(6), propget, helpstring("PKCS #7 šifrirani podatak, \"encrypted-data content type\", odnosno EncryptedData.")
+		] HRESULT EncryptedDataOid([out, retval] BSTR* pRetVal);
+
+		[id(7), helpstring("Vraæa OID iz njegovog neslužbenog naziva.")
+		] HRESULT GetOid(
+			[in] BSTR Name,
+			[out, retval] BSTR* pRetVal
+		);
+
+		[id(8), helpstring("Vraæa neslužbeni naziv OID-a.")
+		] HRESULT GetOidName(
+			[in] BSTR Oid,
+			[out, retval] BSTR* pRetVal
+		);
+
+		[id(9), helpstring("Provjerava je li argument OID algoritma digitalnog sažetka.")
+		] HRESULT IsHashAlgorithm(
+			[in] BSTR Oid,
+			[out, retval] VARIANT_BOOL* pRetVal
+		);
+
+		[id(10), helpstring("Provjerava je li argument OID algoritma za šifriranje simetriènim kljuèem.")
+		] HRESULT IsEncryptionAlgorithm(
+			[in] BSTR Oid,
+			[out, retval] VARIANT_BOOL* pRetVal
+		);
+	};
+
+	[
+		odl,
+		uuid(A626D58D-09E1-408F-BD8F-EA0AF332DA91),     // Usklaðivati s IID_IIssuerSerial.
+		version(1.0),
+		dual,
+		oleautomation,
+	] interface IssuerSerial : IDispatch {
+
+		[id(1), propget
+		] HRESULT IssuerName([out, retval] BSTR* pRetVal);
+
+		[id(2), propget
+		] HRESULT SerialNumber([out, retval] BSTR* pRetVal);
+
+	};
+
+	[
+		odl,
+		uuid(EFE29223-A05F-422C-92CA-1285D9E2D16D),     // Usklaðivati s IID_ICertificate.
+		version(1.0),
+		dual,
+		oleautomation,
+	] interface Certificate : IDispatch {
+
+		[id(1), propget
+		] HRESULT FriendlyName([out, retval] BSTR* pRetVal);
+
+		[id(2), propget
+		] HRESULT IssuerSerial([out, retval] IssuerSerial** pRetVal);
+
+		[id(3), propget
+		] HRESULT Subject([out, retval] BSTR* pRetVal);
+
+		[id(4), propget
+		] HRESULT Thumbprint([out, retval] BSTR* pRetVal);
+
+		[id(5), propget
+		] HRESULT Valid([out, retval] VARIANT_BOOL* pRetVal);
+
+		[id(6), propget
+		] HRESULT FriendlyOrSubjectName([out, retval] BSTR* pRetVal);
+	};
+
+	[
+		odl,
+		uuid(51B87EA2-D7B0-4335-887B-EB99E6AC5179),     // Usklaðivati s IID_ICertificates.
+		version(1.0),
+		dual,
+		oleautomation,
+	] interface Certificates : IDispatch {
+
+		[id(1), helpstring("Uèita certifikate iz specificirane lokacije u pripremi skupa certifikata nad kojim rade ostale operacije.")
+		] HRESULT LoadCertificates(
+			[in] CertificateLocation Location,
+			[in] VARIANT_BOOL IncludeCsp);
+
+		[id(2), helpstring("Naðe certifikat po digitalnom otisku u uèitanom skupu certifikata.")
+		] HRESULT FindCertificate(
+			[in] BSTR Thumbprint,
+			[in, defaultvalue(FALSE)] VARIANT_BOOL ValidOnly,
+			[out, retval] Certificate** pRetVal);
+
+		[id(3), helpstring("Izabere certifikat za kriptografsku operaciju.")
+		] HRESULT SelectCertificate(
+			[in] CertificatePurpose Purpose,
+			[in] VARIANT_BOOL ValidOnly,
+			[in, defaultvalue("")] BSTR Title,
+			[in, defaultvalue("")] BSTR Message,
+			[out, retval] Certificate** pRetVal);
+
+	};
+
+	[
+		odl,
+		uuid(74C1E2AA-AA0F-40AF-865D-A31879B234FA),     // Usklaðivati s IID_IPkcs7.
+		version(1.0),
+		dual,
+		oleautomation,
+		helpstring("Objekt za izradu i èitanje potpisivanih i šifriranih podataka u PKCS #7, odn. CMS sintaksi (RFC 2315, odn. RFC 5652)."),
+	] interface Pkcs7 : IDispatch {
+
+		[id(1), propget, helpstring("Opcije za usmjeravanje rada metoda ove komponente.")
+		] HRESULT Options([out, retval] Pkcs7Options** pRetVal);
+
+		[id(2), helpstring("Kuvertira sadržaj poruke kao CMS/PKCS 7# \"enveloped-data content type\" s jednim primateljem.")
+		] HRESULT EnvelopeData(
+			[in] VARIANT Data,
+			[in] Certificate* certificate,
+			[in, defaultvalue("")] BSTR AlgorithmOid,
+			[out, retval] VARIANT* pRetVal
+		);
+
+		[id(3), helpstring("Vrati OID koji identificira vrstu podatka u tekstu poruke.")
+		] HRESULT GetContentTypeOid(
+			[in] VARIANT Data,
+			[out, retval] BSTR* pRetVal
+		);
+
+		[id(4), helpstring("Otvori sadržaj PKCS #7/CMS \"enveloped-data content type\" (EnvelopedData) poruke i vrati sadržaj izvorno stavljen u kuvertu.")
+		] HRESULT OpenEnvelopedData(
+			[in] VARIANT Data,
+			[in, defaultvalue(NULL)] Certificate* certificate,
+			[out, retval] VARIANT* pRetVal
+		);
+
+		[id(5), helpstring("Potpiše sadržaj poruke kao PKCS #7/CMS \"signed-data content type\" (SignedData) s jednim potpisnikom.")
+		] HRESULT SignData(
+			[in] VARIANT Data,
+			[in] Certificate* certificate,
+			[in] DATE SigningTime,
+			[out, retval] VARIANT* pRetVal
+		);
+
+		[id(6), helpstring("Ovjeri potpise PKCS #7/CMS \"signed-data content type\" (SignedData) poruke, opcionalno provjeri valjanost certifikata u lancu povjerenja potpisnih certifikata i vrati sadržaj potpisane poruke.")
+		] HRESULT VerifySignedData(
+			[in] VARIANT Data,
+			[out, retval] VARIANT* pRetVal
+		);
+
+	};
+
+	[
+		odl,
+		uuid(AFC93446-5450-49F2-AD61-6259CF4BFCD0),     // Usklaðivati s IID_IApplication.
+		version(1.0),
+		dual,
+		oleautomation,
+	] interface _Application : IDispatch {
+
+		[id(1), propget
+		] HRESULT Certificates([out, retval] Certificates** pRetVal);
+
+		[id(2), propget
+		] HRESULT Oids([out, retval] Pkcs7Oids** pRetVal);
+
+		[id(3)
+		] HRESULT CreatePkcs7([out, retval] Pkcs7** pRetVal);
+	};
+
+	[
+		uuid(1EFDA486-414C-4273-B81E-A9FC8C715432),		// Usklaðivati s CLSID_Application.
+		version(1.0),
+		appobject,
+	] coclass Application {
+		[default] interface _Application;
+	};
+};

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
+	<!-- Ovaj element mora biti identičan istoimenom elementu u manifestu klijenta. -->
+	<assemblyIdentity type="win32" name="MammSignerLibNet10" version="1.0.0.0" />
+	<file name="lib\net10.0-windows\MAMM.Signer.Interop.comhost.dll">
+		<comClass clsid="{1efda486-414c-4273-b81e-a9fc8c715432}" threadingModel="Both" progid="MAMM.Signer.Application" />
+	</file>
+</assembly>

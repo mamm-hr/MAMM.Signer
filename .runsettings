@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+	<TestRunParameters>
+		<!-- Ako je true, testovi u Exploratory_* razredima odmah završe bez ishoda. -->
+		<Parameter name="SuppressExploratoryTests" value="true"/>
+		<!-- Ako je true, testovi koji koriste certifikate koji prikazuju korisničko sučelje pri korištenju privatnog
+		     ključa odmah završave bez ishoda. Vidi TestCert.n.ShowsUI, odn. TestCert.md.  -->
+		<Parameter name="SuppressTestsShowingUI" value="true"/>
+		<!-- Ako je true, testovi u razredu TestCert_Setup završe odmah bez ishoda. To nisu stvarno testovi, već samo
+		     metode za uvoz/brisanje certifikata priloženih u .pfx datotekama i ovo normalno treba biti true. -->
+		<Parameter name="SuppressTestCertSetup" value="true"/>
+		<!-- Ako je true, testovi koji koriste certifikate CEZIH-a završe odmah bez ishoda. -->
+		<Parameter name="SuppressTestsUsingCezihCerts" value="true"/>
+		<!-- Zaporka za priložene .pfx datoteke. -->
+		<Parameter name="TestCertPfxPassword" value="testcert"/>
+		<!--
+			Popis certifikata za testiranje. V. TestCert.md za detaljni opis ovog odjeljka.
+
+			Thumb     = thumbprint certifikata
+			ShowsUI   = true ako se pri korištenju privatnog ključa prikazuje korisničko sučelje, inače false
+			Cezih     = true ako se radi o certifikatu izdanom za CEZIH, false ako se radi o certifikatu iz .pfx datoteke priložene projektu
+			FileName  = naziv priložene .pfx datoteke s certifikatom ili prazno ako certifikat nije priložen
+			StoreName = spremište u kojem se certikat nalazi, odnosno u koje se uvozi iz .pfx datoteke
+		-->
+		<!-- TESTCERT_SOFT. ShowsUI staviti shodno tome je li importiran sa zaštitom privatnog ključa. -->
+		<Parameter name="TestCert.1.Thumbprint" value="7a6a8ffc2fa10e9a2a3d20c2dae09a86fad18a44"/>
+		<Parameter name="TestCert.1.ShowsUI"    value="true"/>
+		<Parameter name="TestCert.1.Cezih"      value="true"/>
+		<Parameter name="TestCert.1.FileName"   value=""/>
+		<Parameter name="TestCert.1.StoreName"  value="My"/>
+		<!-- TESTCERT_BLUE. ShowsUI staviti true. -->
+		<Parameter name="TestCert.2.Thumbprint" value="3e5d8a45d45a3485c90604f6da696596b202473d"/>
+		<Parameter name="TestCert.2.ShowsUI"    value="true"/>
+		<Parameter name="TestCert.2.Cezih"      value="true"/>
+		<Parameter name="TestCert.2.FileName"   value=""/>
+		<Parameter name="TestCert.2.StoreName"  value="My"/>
+		<!-- TESTCERT_WHITE. ShowsUI staviti true. -->
+		<Parameter name="TestCert.3.Thumbprint" value="262b6b21e14c77560807f99d611a695c7e9d24f6"/>
+		<Parameter name="TestCert.3.ShowsUI"    value="true"/>
+		<Parameter name="TestCert.3.Cezih"      value="true"/>
+		<Parameter name="TestCert.3.FileName"   value=""/>
+		<Parameter name="TestCert.3.StoreName"  value="My"/>
+		<!-- TESTCERT_ROOT. Ovaj se certifikat uvaža u spremište korijenskih ustanova i traži privolu kod uvažanja i brisanja. -->
+		<Parameter name="TestCert.4.Thumbprint" value="2bc6e834a368635e8836011e96b44addd536551f"/>
+		<Parameter name="TestCert.4.ShowsUI"    value="true"/>
+		<Parameter name="TestCert.4.Cezih"      value="false"/>
+		<Parameter name="TestCert.4.FileName"   value="TestCert_Root.pfx"/>
+		<Parameter name="TestCert.4.StoreName"  value="Root"/>
+		<!-- TESTCERT_CA -->
+		<Parameter name="TestCert.5.Thumbprint" value="c9d80aa7d281836094f893d69ef48a3ef6180903"/>
+		<Parameter name="TestCert.5.ShowsUI"    value="false"/>
+		<Parameter name="TestCert.5.Cezih"      value="false"/>
+		<Parameter name="TestCert.5.FileName"   value="TestCert_CA.pfx"/>
+		<Parameter name="TestCert.5.StoreName"  value="CertificateAuthority"/>
+		<!-- TESTCERT_RSA -->
+		<Parameter name="TestCert.6.Thumbprint" value="728fd75ea53598427c05572c5c95311e6e8647f7"/>
+		<Parameter name="TestCert.6.ShowsUI"    value="false"/>
+		<Parameter name="TestCert.6.Cezih"      value="false"/>
+		<Parameter name="TestCert.6.FileName"   value="TestCert_RSA.pfx"/>
+		<Parameter name="TestCert.6.StoreName"  value="My"/>
+		<!-- TESTCERT_ECDSA_IDENT -->
+		<Parameter name="TestCert.7.Thumbprint" value="4a120c01c59b2f05bb7ca00083b7d28c29646f56"/>
+		<Parameter name="TestCert.7.ShowsUI"    value="false"/>
+		<Parameter name="TestCert.7.Cezih"      value="false"/>
+		<Parameter name="TestCert.7.FileName"   value="TestCert_ECDSA_Ident.pfx"/>
+		<Parameter name="TestCert.7.StoreName"  value="My"/>
+		<!-- TESTCERT_ECDSA_SIGN -->
+		<Parameter name="TestCert.8.Thumbprint" value="9566fd2881761c88b12432d4e7e77b05af3b70b2"/>
+		<Parameter name="TestCert.8.ShowsUI"    value="false"/>
+		<Parameter name="TestCert.8.Cezih"      value="false"/>
+		<Parameter name="TestCert.8.FileName"   value="TestCert_ECDSA_Sign.pfx"/>
+		<Parameter name="TestCert.8.StoreName"  value="My"/>
+		<!--
+			Podaci za regeneriranje TestCase datoteka pomoću metoda ove biblioteke i eksplorativno testiranje. V.
+			TestCase.md za detaljni opis ovog odjeljka.
+
+			SignDateTime	UTC vrijeme potpisa datoteke.
+			SignCertNo		Indeks n certifikata TestCert.n kojim se datoteka potpiše.
+			SignAlg			Asimetrični algoritam za potpisivanje ili prazno za prešutni.
+			CryptCertNo		Indeks n certifikata TestCert.n kojim se datoteka šifrira ili prazno ako se ne šifrira.
+			CryptAlg		Simetrični algoritam za šifriranje ili prazno za prešutni.
+			ContentFileName Naziv priložene datoteke koju se potpiše.
+			MessageFileName	Naziv priložene od AKDSH Signera potpisane/šifrirane datoteke ovog slučaja testiranja ili prazno ako slučaj ne služi uspoređivanju.
+		-->
+		<!-- TESTCASE_SOFT_NONE -->
+		<Parameter name="TestCase.1.SignDateTime"    value="2026-02-27T09:49:46"/>
+		<Parameter name="TestCase.1.SignCertNo"      value="1"/>
+		<Parameter name="TestCase.1.SignAlg"         value="sha1"/>
+		<Parameter name="TestCase.1.CryptCertNo"     value=""/>
+		<Parameter name="TestCase.1.CryptAlg"        value=""/>
+		<Parameter name="TestCase.1.ContentFileName" value="TestCase.txt"/>
+		<Parameter name="TestCase.1.MessageFileName" value="TestCase_Soft_None.txt.p7s"/>
+		<!-- TESTCASE_BLUE_NONE -->
+		<Parameter name="TestCase.2.SignDateTime"    value="2026-02-28T12:54:47"/>
+		<Parameter name="TestCase.2.SignCertNo"      value="2"/>
+		<Parameter name="TestCase.2.SignAlg"         value="sha1"/>
+		<Parameter name="TestCase.2.CryptCertNo"     value=""/>
+		<Parameter name="TestCase.2.CryptAlg"        value=""/>
+		<Parameter name="TestCase.2.ContentFileName" value="TestCase.txt"/>
+		<Parameter name="TestCase.2.MessageFileName" value="TestCase_Blue_None.txt.p7s"/>
+		<!-- TESTCASE_SOFT_BLUE -->
+		<Parameter name="TestCase.3.SignDateTime"    value="2026-02-28T13:02:54"/>
+		<Parameter name="TestCase.3.SignCertNo"      value="1"/>
+		<Parameter name="TestCase.3.SignAlg"         value="sha1"/>
+		<Parameter name="TestCase.3.CryptCertNo"     value="2"/>
+		<Parameter name="TestCase.3.CryptAlg"        value="rc4"/>
+		<Parameter name="TestCase.3.ContentFileName" value="TestCase.txt"/>
+		<Parameter name="TestCase.3.MessageFileName" value="TestCase_Soft_Blue.txt.p7s"/>
+		<!-- TESTCASE_WHITE_NONE -->
+		<Parameter name="TestCase.4.SignDateTime"    value="2026-02-28T12:02:54"/>
+		<Parameter name="TestCase.4.SignCertNo"      value="3"/>
+		<Parameter name="TestCase.4.SignAlg"         value="sha384"/>
+		<Parameter name="TestCase.4.CryptCertNo"     value=""/>
+		<Parameter name="TestCase.4.CryptAlg"        value=""/>
+		<Parameter name="TestCase.4.ContentFileName" value="TestCase.txt"/>
+		<Parameter name="TestCase.4.MessageFileName" value=""/>
+	</TestRunParameters>
+	<RunConfiguration>
+		<!-- Ovo promijeniti u varijablu okružja s direktorijem u koji se smještaju rezultati testiranja ili obrisati za
+		predefinirano ponašanje. -->
+		<ResultsDirectory>%MAMM_TEST_RESULTS%</ResultsDirectory>
+	</RunConfiguration>
+</RunSettings>

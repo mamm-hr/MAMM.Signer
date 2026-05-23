@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+	<!-- Identitet "sklopa" klijentskog programa. Vrijednosti atributa "name" i "version" slobodno se odrede. -->
+	<assemblyIdentity type="win32" name="MammSignerVb6" version="1.0.0.0"/>
+
+	<!-- Primjer ranije ovisnosti klijentskog programa o nekoj drugoj biblioteci. Ovdje se aktivira "moderni izgled"
+	zajedničkih kontrola. -->
+	<dependency>
+		<dependentAssembly>
+			<assemblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version="6.0.0.0" processorArchitecture="x86" publicKeyToken="6595b64144ccf1df"  language="*"/>
+		</dependentAssembly>
+	</dependency>
+
+	<!-- Ovisnost o MAMM.Signer.Interop biblioteci. -->
+	<dependency>
+		<dependentAssembly>
+			<!--
+			Za .NET Framework izgradnju komponente koristiti:
+
+			    <assemblyIdentity type="win32" name="MAMM.Signer.Interop" version="1.0.0.0"/>
+
+			Za .NET izgradnju komponente koristiti:
+
+			    <assemblyIdentity type="win32" name="MammSignerLibNet10" version="1.0.0.0"/>
+
+			V. i odnosne priložene datoteke manifesta komponente. Cijeli element "assemblyIdentitiy" ovdje mora biti
+			identičan istoimenom elementu u manifestu komponente.
+
+			Atribut "name" u .NET Framework verziji ovog elementa mora biti identičan nazivu DLL-a COM biblioteke (bez
+			ekstenzije).
+
+			u NET verziji se atribut "name" odredi proizvoljno, ali mora biti identičan nazivu datoteke manifesta
+			komponente, dakle ako je name="Library" uz ovu datoteku manifesta klijenta mora postojati datoteka manifesta
+			komponente naziva "Library.manifest".
+			-->
+			<assemblyIdentity type="win32" name="MammSignerLibNet10" version="1.0.0.0"/>
+		</dependentAssembly>
+	</dependency>
+
+</assembly>
+

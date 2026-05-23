@@ -1,0 +1,2 @@
+Izgradnja projekta MAMM.Signer.Interop ovdje će stvoriti poddirektorije net10.0-windows\ i net48\ i u njih iskopirati 
+proizvedene artefakte potrebne za aktivaciju objekata iz MammSignerVb6.exe klijenta bez registracije.
