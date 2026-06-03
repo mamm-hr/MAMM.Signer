@@ -412,17 +412,17 @@ public static class AppOperations
                 return;
         }
         else appResult.EncryptCert = SelectCertificate<EncryptCeriticateNotFoundException, EncryptCeriticateNotSelectedException>(
-              certMngr
-            , appOptions.EncryptLoc
-            , appOptions.IncludeCsp
-            , appOptions.EncryptCert
-            , appOptions.SilentUi || forceSilentUi
-            , appOptions.IncludeCsp
-            , CertificatePurpose.Identification
-            , appOptions.AllowInvalid
-            , isOptional
-            , Resources.SelectEncryptCertificateTitle
-            , Resources.SelectEncryptCertificateMessage
+              certMngr: certMngr
+            , location: appOptions.EncryptLoc
+            , includeCsp: appOptions.IncludeCsp
+            , thumbprint: appOptions.EncryptCert
+            , silentUi: appOptions.SilentUi || forceSilentUi
+            , ignorePurpose: appOptions.IgnorePurpose
+            , purpose: CertificatePurpose.Identification
+            , allowInvalid: appOptions.AllowInvalid
+            , isOptional: isOptional
+            , title: Resources.SelectEncryptCertificateTitle
+            , message: Resources.SelectEncryptCertificateMessage
             );
     }
 
@@ -462,17 +462,17 @@ public static class AppOperations
     {
         Debug.Assert( appResult.SignCert is null );
         appResult.SignCert = SelectCertificate<SignCeriticateNotFoundException, SignCeriticateNotSelectedException>(
-              certMngr
-            , appOptions.SignLoc
-            , appOptions.IncludeCsp
-            , appOptions.SignCert
-            , appOptions.SilentUi || forceSilentUi
-            , appOptions.IncludeCsp
-            , CertificatePurpose.Signature
-            , appOptions.AllowInvalid
-            , isOptional
-            , Resources.SelectSignCertificateTitle
-            , Resources.SelectSignCertificateMessage
+              certMngr: certMngr
+            , location: appOptions.SignLoc
+            , includeCsp: appOptions.IncludeCsp
+            , thumbprint: appOptions.SignCert
+            , silentUi: appOptions.SilentUi || forceSilentUi
+            , ignorePurpose: appOptions.IgnorePurpose
+            , purpose: CertificatePurpose.Signature
+            , allowInvalid: appOptions.AllowInvalid
+            , isOptional: isOptional
+            , title: Resources.SelectSignCertificateTitle
+            , message: Resources.SelectSignCertificateMessage
             );
     }
 
