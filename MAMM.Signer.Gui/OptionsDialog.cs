@@ -46,6 +46,16 @@ internal partial class OptionsDialog : Form
             (this.AppOptions, this.Pkcs7Options) = UiReadData();
     }
 
+    private void m_outputDir_Enter( object sender, EventArgs e )
+        => m_outputDir.SelectAll();
+
+    private void m_outputDir_Validating( object sender, System.ComponentModel.CancelEventArgs e )
+    {
+        e.Cancel = !Helpers.IsPathValid( m_outputDir.Text );
+        if(e.Cancel)
+            m_pkcsExt.SelectAll();
+    }
+
     private void m_outputDirButton_Click( object sender, EventArgs e )
     {
         using var dlgT = new FolderBrowserDialog()

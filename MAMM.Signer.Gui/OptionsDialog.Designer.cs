@@ -234,7 +234,8 @@
             // 
             resources.ApplyResources(this.m_outputDir, "m_outputDir");
             this.m_outputDir.Name = "m_outputDir";
-            this.m_outputDir.ReadOnly = true;
+            this.m_outputDir.Enter += new System.EventHandler(this.m_outputDir_Enter);
+            this.m_outputDir.Validating += new System.ComponentModel.CancelEventHandler(this.m_outputDir_Validating);
             // 
             // m_pkcsExt
             // 
