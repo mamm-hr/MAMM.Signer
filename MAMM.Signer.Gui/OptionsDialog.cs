@@ -102,7 +102,7 @@ internal partial class OptionsDialog : Form
                 e.Certificate = m_certManager.FindCertificate( e.Certificate.Thumbprint, validOnly: false );
             else
                 e.Certificate = m_certManager.SelectCertificate(
-                      m_certPurposeAll.Checked ? CertificatePurpose.Unspecified : purpose
+                      m_certPurposeAll.Checked ? CertificatePurpose.Unspecified : m_certPurposeIdent.Checked ? CertificatePurpose.Identification : purpose
                     , !m_allowInvalid.Checked
                     , title
                     , message
@@ -125,6 +125,7 @@ internal partial class OptionsDialog : Form
         var pkcs7Options = new Pkcs7Options();
 
         appOptions.IgnorePurpose = m_certPurposeAll.Checked;
+        appOptions.PreferIdent = m_certPurposeIdent.Checked;
         appOptions.AllowInvalid = m_allowInvalid.Checked;
         appOptions.IncludeCsp = m_includeCsp.Checked;
 
@@ -149,6 +150,7 @@ internal partial class OptionsDialog : Form
     private void UiWriteData( AppOptions appOptions, Pkcs7Options pkcs7Options )
     {
         m_certPurposeAll.Checked = appOptions.IgnorePurpose;
+        m_certPurposeIdent.Checked = appOptions.PreferIdent;
         m_certPurposeContext.Checked = !appOptions.IgnorePurpose;
         m_allowInvalid.Checked = appOptions.AllowInvalid;
         m_includeCsp.Checked = appOptions.IncludeCsp;

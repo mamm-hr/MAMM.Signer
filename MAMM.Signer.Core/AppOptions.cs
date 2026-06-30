@@ -51,6 +51,13 @@ public class AppOptions
     public bool IgnorePurpose { get; set; } = false;
 
     /// <summary>
+    /// Ako <see cref="IgnorePurpose"/> ima vrijednost <see langword="false"/>, a ovo je <see langword="true"/> onda se
+    /// u popisima za izbor certifikata prikazuju identifikacijski i kad bi se prema svrsi za koju se certifikat izabire
+    /// trebali prikazati potpisni, ali samo ukoliko je umjesto potpisnog moguće koristiti i identifikacijski.
+    /// </summary>
+    public bool PreferIdent { get; set; } = false;
+
+    /// <summary>
     /// Uključi u pregled ili traženje certifikata na pametnim karticama i one dostupne samo kroz CSP.
     /// </summary>
     public bool IncludeCsp { get; set; } = false;

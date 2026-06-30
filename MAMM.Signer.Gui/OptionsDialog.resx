@@ -127,8 +127,9 @@
   <data name="&gt;&gt;m_outputDirButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;m_outputDirResetButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="m_outputDirButton.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
   <data name="m_tab_01.Size" type="System.Drawing.Size, System.Drawing">
     <value>471, 270</value>
@@ -136,7 +137,6 @@
   <data name="&gt;&gt;m_pkcsExt.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="m_label_01.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -155,6 +155,9 @@
   <data name="&gt;&gt;m_label_06.Parent" xml:space="preserve">
     <value>m_pageSignature</value>
   </data>
+  <data name="m_pageEncryption.Size" type="System.Drawing.Size, System.Drawing">
+    <value>463, 244</value>
+  </data>
   <data name="&gt;&gt;m_outputDirResetButton.Name" xml:space="preserve">
     <value>m_outputDirResetButton</value>
   </data>
@@ -168,7 +171,7 @@
     <value>15, 14</value>
   </data>
   <data name="m_label_08.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 23</value>
+    <value>6, 53</value>
   </data>
   <data name="m_pkcsExt.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -179,8 +182,8 @@
   <data name="m_pageEncryption.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="m_label_07.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
+  <data name="m_allowInvalid.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
   </data>
   <data name="m_label_06.Size" type="System.Drawing.Size, System.Drawing">
     <value>168, 16</value>
@@ -190,6 +193,9 @@
   </data>
   <data name="&gt;&gt;m_allowInvalid.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="m_outputDirResetButton.Text" xml:space="preserve">
+    <value></value>
   </data>
   <data name="&gt;&gt;m_label_02.Name" xml:space="preserve">
     <value>m_label_02</value>
@@ -201,7 +207,7 @@
     <value>307, 20</value>
   </data>
   <data name="m_allowInvalid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 24</value>
+    <value>80, 24</value>
   </data>
   <data name="&gt;&gt;m_trustCertificates.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -209,8 +215,8 @@
   <data name="&gt;&gt;m_certPurposeContext.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="m_digestAlg.Location" type="System.Drawing.Point, System.Drawing">
-    <value>14, 30</value>
+  <data name="&gt;&gt;m_group_01.Name" xml:space="preserve">
+    <value>m_group_01</value>
   </data>
   <data name="&gt;&gt;m_pkcsExt.Parent" xml:space="preserve">
     <value>$this</value>
@@ -231,7 +237,7 @@
     <value>Certificate selection</value>
   </data>
   <data name="m_includeCsp.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="m_encryptOid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -252,25 +258,28 @@
     <value>48, 20</value>
   </data>
   <data name="m_certPurposeAll.Text" xml:space="preserve">
-    <value>All certificates</value>
+    <value>All</value>
   </data>
   <data name="&gt;&gt;m_digestAlg.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="m_certPurposeContext.Text" xml:space="preserve">
-    <value>According to cryptographic purpose</value>
+    <value>By purpose</value>
+  </data>
+  <data name="m_outputDirButton.Text" xml:space="preserve">
+    <value>...</value>
   </data>
   <data name="&gt;&gt;m_label_02.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;m_certPurposeAll.Parent" xml:space="preserve">
-    <value>m_group_01</value>
-  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="m_outputDirButton.Text" xml:space="preserve">
-    <value>...</value>
+  <data name="m_label_07.Size" type="System.Drawing.Size, System.Drawing">
+    <value>111, 23</value>
+  </data>
+  <data name="&gt;&gt;m_outputDirResetButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_encryptOid.Parent" xml:space="preserve">
     <value>m_pageEncryption</value>
@@ -298,10 +307,10 @@
     <value>2</value>
   </data>
   <data name="m_allowInvalid.Text" xml:space="preserve">
-    <value>Invalid certificates</value>
+    <value>Invalid</value>
   </data>
   <data name="m_allowInvalid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>245, 46</value>
+    <value>126, 53</value>
   </data>
   <data name="&gt;&gt;m_label_07.Parent" xml:space="preserve">
     <value>m_group_01</value>
@@ -314,6 +323,9 @@
   </data>
   <data name="m_signCert.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
+  </data>
+  <data name="&gt;&gt;m_certPurposeIdent.Parent" xml:space="preserve">
+    <value>m_group_01</value>
   </data>
   <data name="m_outputDirResetButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -346,7 +358,7 @@
     <value>m_allowInvalid</value>
   </data>
   <data name="m_certPurposeContext.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 75</value>
+    <value>188, 23</value>
   </data>
   <data name="m_group_01.Size" type="System.Drawing.Size, System.Drawing">
     <value>471, 112</value>
@@ -354,20 +366,14 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>600, 487</value>
   </data>
-  <data name="m_encryptCert.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;m_group_01.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_encryptCert.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;m_pageEncryption.Parent" xml:space="preserve">
-    <value>m_tab_01</value>
-  </data>
-  <data name="m_allowInvalid.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
   <data name="&gt;&gt;m_allowInvalid.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="&gt;&gt;m_group_01.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -375,8 +381,8 @@
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OptionsDialog</value>
   </data>
-  <data name="m_outputDirButton.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+  <data name="m_label_01.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 170</value>
   </data>
   <data name="m_certPurposeAll.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -390,8 +396,14 @@
   <data name="m_pageEncryption.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
+  <data name="m_digestAlg.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 30</value>
+  </data>
   <data name="m_okButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>489, 12</value>
+  </data>
+  <data name="m_group_01.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
   </data>
   <data name="&gt;&gt;m_encryptCert.Type" xml:space="preserve">
     <value>MAMM.Signer.Gui.CertificateControl, MAMM.Signer.Gui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
@@ -402,8 +414,8 @@
   <data name="m_label_08.Text" xml:space="preserve">
     <value>Include also:</value>
   </data>
-  <data name="m_group_01.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 12</value>
+  <data name="&gt;&gt;m_pageEncryption.Parent" xml:space="preserve">
+    <value>m_tab_01</value>
   </data>
   <data name="&gt;&gt;m_label_03.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -429,17 +441,20 @@
   <data name="&gt;&gt;m_label_06.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="&gt;&gt;m_okButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="m_pageSignature.Size" type="System.Drawing.Size, System.Drawing">
     <value>463, 244</value>
   </data>
   <data name="m_encryptCert.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 45</value>
   </data>
-  <data name="&gt;&gt;m_okButton.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="m_encryptCert.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="m_cancelButton.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="m_certPurposeIdent.Text" xml:space="preserve">
+    <value>Prefere identification</value>
   </data>
   <data name="m_label_08.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -481,19 +496,22 @@
     <value>m_outputDir</value>
   </data>
   <data name="m_includeCsp.Location" type="System.Drawing.Point, System.Drawing">
-    <value>245, 76</value>
+    <value>212, 53</value>
   </data>
   <data name="m_label_08.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 23</value>
+    <value>111, 23</value>
   </data>
   <data name="&gt;&gt;m_trustCertificates.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="m_label_08.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="m_label_06.Text" xml:space="preserve">
     <value>Signature digest algorithms:</value>
+  </data>
+  <data name="&gt;&gt;m_certPurposeIdent.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="&gt;&gt;m_cancelButton.Name" xml:space="preserve">
     <value>m_cancelButton</value>
@@ -519,11 +537,8 @@
   <data name="m_cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>96, 32</value>
   </data>
-  <data name="&gt;&gt;m_tab_01.Name" xml:space="preserve">
-    <value>m_tab_01</value>
-  </data>
   <data name="&gt;&gt;m_certPurposeContext.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="m_pageSignature.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -535,13 +550,13 @@
     <value>NoControl</value>
   </data>
   <data name="m_certPurposeAll.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 45</value>
+    <value>126, 22</value>
   </data>
   <data name="&gt;&gt;m_certPurposeContext.Parent" xml:space="preserve">
     <value>m_group_01</value>
   </data>
   <data name="m_includeCsp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 24</value>
+    <value>253, 24</value>
   </data>
   <data name="&gt;&gt;m_label_07.Name" xml:space="preserve">
     <value>m_label_07</value>
@@ -557,6 +572,9 @@
   </data>
   <data name="&gt;&gt;m_signCert.Name" xml:space="preserve">
     <value>m_signCert</value>
+  </data>
+  <data name="m_certPurposeIdent.Location" type="System.Drawing.Point, System.Drawing">
+    <value>302, 24</value>
   </data>
   <data name="&gt;&gt;m_pageSignature.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -595,7 +613,7 @@
     <value>m_okButton</value>
   </data>
   <data name="&gt;&gt;m_certPurposeAll.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>4</value>
   </data>
   <data name="m_label_03.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -612,8 +630,8 @@
   <data name="&gt;&gt;m_trustCertificates.Parent" xml:space="preserve">
     <value>m_pageSignature</value>
   </data>
-  <data name="m_pageEncryption.Size" type="System.Drawing.Size, System.Drawing">
-    <value>463, 244</value>
+  <data name="m_label_07.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
   </data>
   <data name="&gt;&gt;m_cancelButton.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -629,6 +647,9 @@
   </data>
   <data name="m_signCert.Size" type="System.Drawing.Size, System.Drawing">
     <value>433, 140</value>
+  </data>
+  <data name="&gt;&gt;m_certPurposeIdent.Name" xml:space="preserve">
+    <value>m_certPurposeIdent</value>
   </data>
   <data name="m_outputDirResetButton.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -669,6 +690,9 @@
   <data name="&gt;&gt;m_certPurposeContext.Name" xml:space="preserve">
     <value>m_certPurposeContext</value>
   </data>
+  <data name="m_certPurposeIdent.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="m_certPurposeContext.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -677,9 +701,6 @@
   </data>
   <data name="m_label_03.Text" xml:space="preserve">
     <value>Encryption algorithm:</value>
-  </data>
-  <data name="&gt;&gt;m_pageEncryption.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="m_label_01.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 23</value>
@@ -690,11 +711,14 @@
   <data name="&gt;&gt;m_encryptOid.Type" xml:space="preserve">
     <value>MAMM.Signer.Gui.OidControl, MAMM.Signer.Gui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
+  <data name="&gt;&gt;m_certPurposeAll.Parent" xml:space="preserve">
+    <value>m_group_01</value>
+  </data>
   <data name="m_digestOid.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;m_group_01.Name" xml:space="preserve">
-    <value>m_group_01</value>
+  <data name="&gt;&gt;m_digestAlg.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="m_outputDir.Location" type="System.Drawing.Point, System.Drawing">
     <value>138, 167</value>
@@ -702,8 +726,8 @@
   <data name="m_pkcsExt.Location" type="System.Drawing.Point, System.Drawing">
     <value>138, 138</value>
   </data>
-  <data name="m_outputDirResetButton.Text" xml:space="preserve">
-    <value></value>
+  <data name="&gt;&gt;m_certPurposeIdent.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;m_digestOid.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -712,7 +736,10 @@
     <value>Signer</value>
   </data>
   <data name="m_certPurposeAll.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 24</value>
+    <value>56, 24</value>
+  </data>
+  <data name="m_certPurposeIdent.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;m_encryptOid.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -738,6 +765,9 @@
   <data name="&gt;&gt;m_outputDirButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="m_certPurposeIdent.Size" type="System.Drawing.Size, System.Drawing">
+    <value>163, 24</value>
+  </data>
   <data name="&gt;&gt;m_trustCertificates.Name" xml:space="preserve">
     <value>m_trustCertificates</value>
   </data>
@@ -750,8 +780,8 @@
   <data name="m_okButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;m_group_01.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="m_cancelButton.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="m_signCert.Location" type="System.Drawing.Point, System.Drawing">
     <value>14, 87</value>
@@ -765,8 +795,8 @@
   <data name="&gt;&gt;m_group_01.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;m_digestAlg.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;m_pageEncryption.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="m_label_07.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -783,14 +813,17 @@
   <data name="&gt;&gt;m_label_08.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="m_label_08.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
   <data name="&gt;&gt;m_pageEncryption.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="m_certPurposeContext.Size" type="System.Drawing.Size, System.Drawing">
-    <value>198, 24</value>
+    <value>108, 24</value>
   </data>
-  <data name="m_label_01.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 170</value>
+  <data name="&gt;&gt;m_tab_01.Name" xml:space="preserve">
+    <value>m_tab_01</value>
   </data>
   <data name="&gt;&gt;m_encryptCert.Parent" xml:space="preserve">
     <value>m_pageEncryption</value>

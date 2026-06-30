@@ -128,6 +128,12 @@ Navede li se ovaj prekidač, prikaže li program popis certifikata, on će sadr�
 na njihovu namjenu. Bez ovog prekidača, popis sadrži isključivo certifikate namijenjene potpisivanju kad se izabire
 potpisni certifikat, odnosno isključivo certifikate namijenjene identifikaciji kad se izabire certifikat primatelja.
 
+#### /preferIdent
+
+Ovaj prekidač se ignorira ako je zadan **/ignorePurpose**. U suprotnom, ako je zadan, prikaže li program popis
+certifikata koji bi trebao sadržavati potpisne certifikate, a za operaciju se može koristiti i identifikacijski,
+prikazat će u popisu identifikacijske umjesto potpisnih certifikata.
+
 #### /includeCsp
 
 Navede li se ovaj prekidač, uključi u pregled ili traženje certifikata na kriptografskim uređajima i certifikate

@@ -2,7 +2,6 @@
 using MAMM.Signer.Shared;
 using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
-using static MAMM.Signer.Core.AppResult;
 
 namespace MAMM.Signer.Core;
 
@@ -205,7 +204,7 @@ public static class AppOperations
 
             // Izbor potpisnog certifikata ako je zatraženo potpisivanje.
             if(appOptions.Sign)
-                SelectSignCertificate( appOptions, appResult, certManager );
+                SelectSignCertificate( appOptions, appResult, certManager, canUseIdent: true );
 
             // Izbor "enkripcijskog" certifikata ako je zatražena enkripcija ili ovjera.
             if(appOptions.Encrypt)
@@ -381,7 +380,7 @@ public static class AppOperations
     ///
     /// <param name="forceSilentUi">
     ///     Forsira potiskivanje sistemskog dijalog za izbor certifikata, bez obzira na <paramref
-    ///     name="appOptions"/>.</param>
+    ///     name="appOptions"/>. U tom slučaju ignorira i restrikciju po namjeni.</param>
     ///
     /// <param name="isOptional">
     ///     Neće baciti iznimke ako certifikat nije izbaran, nego vrati <see langword="null"/>.</param>
@@ -402,7 +401,7 @@ public static class AppOperations
     {
         Debug.Assert( appResult.EncryptCert is null );
 
-        // Je li naznačeno da se i za enkripciju koristi potpisni certifikat?
+        // Je li naznačeno da se i za šifriranje koristi potpisni certifikat?
         if("*" == appOptions.EncryptCert)
         {
             // Ako je naznačeno, pa izabere potpisni certifikat ako je on već izabran. Ako nije,
@@ -417,7 +416,7 @@ public static class AppOperations
             , includeCsp: appOptions.IncludeCsp
             , thumbprint: appOptions.EncryptCert
             , silentUi: appOptions.SilentUi || forceSilentUi
-            , ignorePurpose: appOptions.IgnorePurpose
+            , ignorePurpose: forceSilentUi || appOptions.IgnorePurpose
             , purpose: CertificatePurpose.Identification
             , allowInvalid: appOptions.AllowInvalid
             , isOptional: isOptional
@@ -441,10 +440,13 @@ public static class AppOperations
     ///
     /// <param name="forceSilentUi">
     ///     Forsira potiskivanje sistemskog dijaloga za izbor certifikata, bez obzira na <paramref
-    ///     name="appOptions"/>.</param>
+    ///     name="appOptions"/>. U tom slučaju ignorira i restrikciju po namjeni.</param>
     ///
     /// <param name="isOptional">
     ///     Neće baciti iznimke ako certifikat nije izbaran, nego vrati <see langword="null"/>.</param>
+    ///
+    /// <param name="canUseIdent">
+    ///     Za operaciju se može koristiti i identifikacijski certifikat.</param>
     ///
     /// <exception cref="SignCeriticateNotFoundException">
     ///     Potpisni certifikat je zadan kroz <see cref="appOptions"/>, ali nije nađen.</exception>
@@ -458,6 +460,7 @@ public static class AppOperations
         , ICertificateManager certMngr
         , bool forceSilentUi = false
         , bool isOptional = false
+        , bool canUseIdent = false
         )
     {
         Debug.Assert( appResult.SignCert is null );
@@ -467,8 +470,8 @@ public static class AppOperations
             , includeCsp: appOptions.IncludeCsp
             , thumbprint: appOptions.SignCert
             , silentUi: appOptions.SilentUi || forceSilentUi
-            , ignorePurpose: appOptions.IgnorePurpose
-            , purpose: CertificatePurpose.Signature
+            , ignorePurpose: forceSilentUi || appOptions.IgnorePurpose
+            , purpose: appOptions.PreferIdent && canUseIdent ? CertificatePurpose.Identification : CertificatePurpose.Signature
             , allowInvalid: appOptions.AllowInvalid
             , isOptional: isOptional
             , title: Resources.SelectSignCertificateTitle

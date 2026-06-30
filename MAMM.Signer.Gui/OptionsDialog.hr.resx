@@ -126,14 +126,17 @@
   <data name="m_includeCsp.Text" xml:space="preserve">
     <value>Pametne kartice dostupne kroz CSP</value>
   </data>
-  <data name="m_allowInvalid.Text" xml:space="preserve">
-    <value>Nevaljane certifikate</value>
-  </data>
   <data name="m_certPurposeContext.Text" xml:space="preserve">
-    <value>Prema kriptografskoj namjeni</value>
+    <value>Prema namjeni</value>
   </data>
   <data name="m_certPurposeAll.Text" xml:space="preserve">
-    <value>Sve certifikate</value>
+    <value>Sve</value>
+  </data>
+  <data name="m_allowInvalid.Text" xml:space="preserve">
+    <value>Nevaljane</value>
+  </data>
+  <data name="m_certPurposeIdent.Text" xml:space="preserve">
+    <value>Preferiraj identifikacijske</value>
   </data>
   <data name="m_group_01.Text" xml:space="preserve">
     <value>Izabiranje certifikata</value>

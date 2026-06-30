@@ -40,9 +40,10 @@
             System.Windows.Forms.TabPage m_pageEncryption;
             System.Windows.Forms.Label m_label_03;
             this.m_includeCsp = new System.Windows.Forms.CheckBox();
-            this.m_allowInvalid = new System.Windows.Forms.CheckBox();
             this.m_certPurposeContext = new System.Windows.Forms.RadioButton();
             this.m_certPurposeAll = new System.Windows.Forms.RadioButton();
+            this.m_allowInvalid = new System.Windows.Forms.CheckBox();
+            this.m_certPurposeIdent = new System.Windows.Forms.CheckBox();
             this.m_digestOid = new MAMM.Signer.Gui.OidControl();
             this.m_trustCertificates = new System.Windows.Forms.CheckBox();
             this.m_signCert = new MAMM.Signer.Gui.CertificateControl();
@@ -77,9 +78,10 @@
             m_group_01.Controls.Add(m_label_08);
             m_group_01.Controls.Add(m_label_07);
             m_group_01.Controls.Add(this.m_includeCsp);
-            m_group_01.Controls.Add(this.m_allowInvalid);
             m_group_01.Controls.Add(this.m_certPurposeContext);
             m_group_01.Controls.Add(this.m_certPurposeAll);
+            m_group_01.Controls.Add(this.m_allowInvalid);
+            m_group_01.Controls.Add(this.m_certPurposeIdent);
             m_group_01.Name = "m_group_01";
             m_group_01.TabStop = false;
             // 
@@ -99,12 +101,6 @@
             this.m_includeCsp.Name = "m_includeCsp";
             this.m_includeCsp.UseVisualStyleBackColor = true;
             // 
-            // m_allowInvalid
-            // 
-            resources.ApplyResources(this.m_allowInvalid, "m_allowInvalid");
-            this.m_allowInvalid.Name = "m_allowInvalid";
-            this.m_allowInvalid.UseVisualStyleBackColor = true;
-            // 
             // m_certPurposeContext
             // 
             resources.ApplyResources(this.m_certPurposeContext, "m_certPurposeContext");
@@ -118,6 +114,18 @@
             this.m_certPurposeAll.Name = "m_certPurposeAll";
             this.m_certPurposeAll.TabStop = true;
             this.m_certPurposeAll.UseVisualStyleBackColor = true;
+            // 
+            // m_allowInvalid
+            // 
+            resources.ApplyResources(this.m_allowInvalid, "m_allowInvalid");
+            this.m_allowInvalid.Name = "m_allowInvalid";
+            this.m_allowInvalid.UseVisualStyleBackColor = true;
+            // 
+            // m_certPurposeIdent
+            // 
+            resources.ApplyResources(this.m_certPurposeIdent, "m_certPurposeIdent");
+            this.m_certPurposeIdent.Name = "m_certPurposeIdent";
+            this.m_certPurposeIdent.UseVisualStyleBackColor = true;
             // 
             // m_label_02
             // 
@@ -299,5 +307,6 @@
         private OidControl m_digestOid;
         private OidControl m_encryptOid;
         private Button m_outputDirResetButton;
+        private CheckBox m_certPurposeIdent;
     }
 }
